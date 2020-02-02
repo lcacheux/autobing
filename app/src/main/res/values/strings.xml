@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Auto Bing</string>
+    <string name="go">Go</string>
+    <string name="how_many_label">How many searches ?</string>
+</resources>
