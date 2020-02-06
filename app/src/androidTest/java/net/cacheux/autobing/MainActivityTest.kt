@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import net.cacheux.autobing.MainActivity.Companion.MAX_SEARCHES
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -29,7 +30,7 @@ class MainActivityTest {
         onView(withId(R.id.countText)).perform(replaceText("0"))
         onView(withId(R.id.launchButton)).check(matches(isNotEnabled()))
 
-        onView(withId(R.id.countText)).perform(replaceText("30"))
+        onView(withId(R.id.countText)).perform(replaceText((MAX_SEARCHES + 1).toString()))
         onView(withId(R.id.launchButton)).check(matches(isNotEnabled()))
     }
 

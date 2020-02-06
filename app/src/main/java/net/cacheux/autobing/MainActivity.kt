@@ -4,20 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        private const val MAX_SEARCHES = 20
+        private const val INITIAL_VALUE = 20
+        @VisibleForTesting const val MAX_SEARCHES = 30
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        countText.setText(MAX_SEARCHES.toString())
+        countText.setText(INITIAL_VALUE.toString())
 
         countText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(e: Editable) {}
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 try {
                     val count = Integer.parseInt(text.toString())
-                    launchButton.isEnabled = count in 1..20
+                    launchButton.isEnabled = count in 1..MAX_SEARCHES
                 } catch (e: java.lang.NumberFormatException) {
                     logError("Wrong input", e)
                     launchButton.isEnabled = false
