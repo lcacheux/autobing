@@ -28,6 +28,7 @@ class StartBingService : IntentService("StartBingService") {
                         logDebug { "Starting Bing search $query" }
                         startActivity(Intent("com.microsoft.bing.SEARCH").apply {
                             putExtra("query", query)
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         })
                     }, (i * 2000).toLong())
                 }
