@@ -2,6 +2,7 @@ package net.cacheux.autobing
 
 import android.app.IntentService
 import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 
 const val ACTION_GO = "net.cacheux.autobing.action.GO"
@@ -26,9 +27,10 @@ class StartBingService : IntentService("StartBingService") {
                     handler.postDelayed({
                         val query = getRandomString()
                         logDebug { "Starting Bing search $query" }
-                        startActivity(Intent("com.microsoft.bing.SEARCH").apply {
-                            putExtra("query", query)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://www.bing.com/search?q=$query")).apply {
+                            addCategory(Intent.CATEGORY_BROWSABLE)
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         })
                     }, (i * 2000).toLong())
                 }
